@@ -1,6 +1,6 @@
 {
   "name": "dsh-zoom",
-  "version": "0.1.0",
+  "version": "0.1.1-private.1",
   "description": "Global UI zoom for the DeepSeek Harness web client: Cmd/Ctrl +/-/0, persisted across restarts.",
   "type": "module",
   "main": "lib/index.js",
@@ -32,11 +32,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DC-507/dsh-zoom.git"
+    "url": "git+https://github.com/Aelithis/dsh-zoom.git"
   },
-  "homepage": "https://github.com/DC-507/dsh-zoom#readme",
+  "homepage": "https://github.com/Aelithis/dsh-zoom#readme",
   "bugs": {
-    "url": "https://github.com/DC-507/dsh-zoom/issues"
+    "url": "https://github.com/Aelithis/dsh-zoom/issues"
   },
   "author": "DC-507",
   "license": "MIT",

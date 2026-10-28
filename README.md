@@ -1,3 +1,13 @@
+# DSH Private 整体缩放插件
+
+基于 DC-507/dsh-zoom v0.1.0（提交 `4c3c857a2220f8ae20c474e0787b2070bf0f8fce`）的个人维护分支。修复 Private rc.3 中缩放后下拉菜单重复计算比例、偏离触发按钮的问题；统一元素测量、视口、鼠标坐标和命中测试的坐标单位，停用时恢复原接口。没有联网代码、生产依赖、安装脚本或自动更新。
+
+安装时使用本仓库的完整提交号，不跟踪 main 或可移动标签。后续上游更新先审查差异、测试，再手动更换固定提交。快捷键为 Cmd/Ctrl 与 =、-、0。
+
+以下保留上游说明；其中应用路径和旧版兼容声明仅属于上游。
+
+---
+
 # dsh-zoom
 
 Global UI zoom for the DeepSeek Harness web client: scales the **whole interface** — sidebar, menus, settings, overlays and conversation — from the keyboard.

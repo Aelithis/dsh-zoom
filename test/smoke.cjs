@@ -27,6 +27,29 @@ const window = globalThis.window;
 window.addEventListener = (type, fn, capture) => listeners.push({ type, fn, capture });
 window.removeEventListener = () => {};
 window.dispatchEvent = () => {};
+window.innerWidth = 1200;
+window.innerHeight = 900;
+globalThis.DOMRect = class {
+  constructor(x, y, width, height) { Object.assign(this, { x, y, width, height, left: x, top: y, right: x + width, bottom: y + height }); }
+};
+globalThis.Element = class {
+  getBoundingClientRect() { return new DOMRect(600, 400, 200, 40); }
+  getClientRects() { return [this.getBoundingClientRect()]; }
+};
+globalThis.Range = class extends Element {};
+Range.prototype.getBoundingClientRect = Element.prototype.getBoundingClientRect;
+Range.prototype.getClientRects = Element.prototype.getClientRects;
+globalThis.MouseEvent = class {
+  get clientX() { return 600; }
+  get clientY() { return 400; }
+  get pageX() { return 600; }
+  get pageY() { return 400; }
+};
+globalThis.Document = class {
+  elementFromPoint(x, y) { return [x, y]; }
+  elementsFromPoint(x, y) { return [[x, y]]; }
+};
+const originalRect = Element.prototype.getBoundingClientRect;
 
 const store = new Map();
 window.localStorage = {
@@ -126,6 +149,11 @@ assert.equal(zoom(), 1.5, "the ladder keeps stepping");
 
 press(chord("Minus"));
 assert.equal(zoom(), 1.25, "Cmd+- steps down");
+const anchor = new Element().getBoundingClientRect();
+assert.equal(anchor.bottom * zoom(), 440, "fixed menu stays at the visual anchor edge at 125%, instead of being scaled twice");
+assert.equal(window.innerWidth, 960, "viewport clamp uses layout pixels");
+assert.equal(new MouseEvent().clientX, anchor.left, "pointer hit tests use the same coordinates as rectangles");
+assert.deepEqual(new Document().elementFromPoint(anchor.left, anchor.top), [600, 400]);
 
 press(chord("Digit0"));
 assert.equal(zoom(), 1, "Cmd+0 resets");
@@ -144,5 +172,7 @@ assert.equal(rootStyle.has("zoom"), false, "disposal drops the override");
 assert.equal(rootStyle.has("--dsh-ui-zoom"), false, "disposal drops the exposed scale");
 assert.equal(styleTags[0].isConnected, false, "disposal removes the patch tag");
 assert.equal(window.__dshZoom, undefined, "disposal removes the debug handle");
+assert.equal(Element.prototype.getBoundingClientRect, originalRect, "disposal restores native geometry");
+assert.equal(window.innerWidth, 1200, "disposal restores the viewport getter");
 
 console.log("dsh-zoom smoke test: ok");
