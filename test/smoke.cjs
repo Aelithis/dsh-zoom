@@ -134,6 +134,8 @@ registered.exports.apply({
 assert.equal(zoom(), 1, "default level is 100%");
 assert.equal(rootStyle.has("zoom"), false, "100% must not set a zoom override");
 assert.equal(styleTags.length, 1, "one viewport-patch style tag is created");
+assert.ok(styleTags[0].textContent.includes("[data-dsh-panel-host]{height:calc(100vh/var(--dsh-ui-zoom,1))!important}"),
+  "sidebar viewport rule exists before the sidebar has mounted");
 assert.equal(document.documentElement.dataset.dshZoom, "1");
 
 const zoomIn = chord("Equal");

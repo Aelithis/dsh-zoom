@@ -1,6 +1,6 @@
 {
   "name": "dsh-zoom",
-  "version": "0.1.1-private.1",
+  "version": "0.1.2-private.1",
   "description": "Global UI zoom for the DeepSeek Harness web client: Cmd/Ctrl +/-/0, persisted across restarts.",
   "type": "module",
   "main": "lib/index.js",
@@ -20,7 +20,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node test/smoke.cjs"
+    "test": "node test/smoke.cjs",
+    "test:browser": "node test/scroll.cjs"
   },
   "keywords": [
     "dsh",
